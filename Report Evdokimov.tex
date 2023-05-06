@@ -1,0 +1,204 @@
+\documentclass[12pt,a4paper,russian]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{setspace,amsmath}
+\usepackage[left=30mm, top=20mm, right=15mm, bottom=25mm, nohead, footskip=10mm]{geometry} % настройки полей документа
+\linespread{1.5}
+\usepackage{indentfirst}
+\setlength\parindent{1cm} %абзацный отступ
+
+\usepackage{multirow}
+
+%Для картинок
+\usepackage{graphicx}
+\usepackage{graphics}
+\graphicspath{{images/}} %папка с картинками
+\setlength\fboxsep{3pt} %отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{0.5pt} %толщина линий рамки \fbox{}
+\usepackage{wrapfig} %обтекание рисунков текстом
+
+\usepackage[size=normalsize,nooneline]{caption}
+\captionsetup[wrapfigure]{name=Рисунок} %переименование рисунков по госту
+\captionsetup[figure]{name=Рисунок}
+\captionsetup{figurewithin=section} %нумерация рисунков по госту
+\captionsetup{tablewithin=section} %нумерация таблиц по госту
+\captionsetup{format=plain,labelsep=endash}
+\renewcommand*{\thesection}{\arabic{section}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}%глубина нумерации
+
+
+\usepackage{xcolor} %работа с цветами
+\usepackage[unicode, pdftex]{hyperref} %для гиперссылок
+% Цвета для гиперссылок
+\definecolor{linkcolor}{HTML}{000000} % цвет ссылок
+\definecolor{urlcolor}{HTML}{000000} % цвет гиперссылок
+\definecolor{citecolor}{HTML}{000000} % цвет гиперссылок
+
+\hypersetup{pdfstartview=FitH,linkcolor=linkcolor,urlcolor=urlcolor,citecolor=citecolor, colorlinks=true}
+
+\usepackage{amsfonts} % для букв с двойными штрихами
+
+\usepackage{cite} %для удобства ссылок
+
+%для вставки текста Mathmatica
+\usepackage{amsmath, amssymb, graphics, setspace}
+
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+
+\newcounter{mathematicapage}
+
+\usepackage[T2A]{fontenc}
+
+%Переименование списка литры
+\addto\captionsrussian{\def\bibname{\hyphenpenalty=10000\normalfont\fontsize{13}{15}\bfseries СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ И ЛИТЕРАТУРЫ}}
+
+\renewcommand*{\contentsname}{СОДЕРЖАНИЕ}
+\renewcommand*{\bibname}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ И ЛИТЕРАТУРЫ}
+\renewcommand*{\theequation}{\arabic{section}.\arabic{equation}} %правильная нумерация формул
+
+\usepackage{pdfpages}%картинка на весь лист
+
+
+\usepackage{titlesec}%отступы заголовков
+
+\titleformat{\chapter}{\normalfont\fontsize{13}{40}\bfseries\filcenter\hyphenpenalty=10000}{\thechapter}{1em}{}
+\titleformat{\section}[block]{\normalfont\fontsize{13}{15}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\fontsize{13}{15}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\normalfont\fontsize{13}{15}\bfseries}{\thesubsubsection}{1em}{}
+
+\titlespacing{\chapter}{\parindent}{2ex}{4ex}
+\titlespacing{\section}{\parindent}{2ex}{2ex}
+\titlespacing{\subsection}{\parindent}{2ex}{2ex}
+\titlespacing{\subsubsection}{\parindent}{2ex}{2ex}
+
+
+\begin{document} % начало документа
+	
+	%СОДЕРЖАНИЕ
+	\renewcommand{\contentsname}{СОДЕРЖАНИЕ} 
+	\tableofcontents
+	
+	%КОНЕЦ СОДЕРЖАНИЯ
+	
+	
+	\newpage
+	%ОСНОВНАЯ ЧАСТЬ
+	\chapter*{ОСНОВНАЯ ЧАСТЬ}
+	\addcontentsline{toc}{chapter}{ОСНОВНАЯ ЧАСТЬ}
+	\refstepcounter{chapter}
+	
+	
+	
+	\section{Решение волнового уравнения}
+	Дифференциальные уравнения в частных производных, которые встречаются при решении физических задач, называют также уравнениями математической физики. Одним из основных уравнений математической физики является волновое уравнение:
+	
+	
+	\subsection{Вывод уравнения колебаний струны}
+	
+	% https://mipt.ru/education/chair/physics/S_I/lab/string_145.pdf
+	
+	Рассмотрим гибкую однородную струну, в которой создано натяжение $T$, и получим дифференциальное уравнение, описывающее её малые поперечные свободные колебания. Отметим, что, если струна расположена горизонтально в поле тяжести, величина $T$ должна быть достаточна для того, чтобы в состоянии равновесия струна не провисала, т.е. сила натяжения должна существенно превышать вес струны. 
+	
+	Направим ось $Ox$ вдоль струны в положении равновесия. Форму струны будем описывать функцией $y(x, t)$, определяющей её вертикальное смещение в точке $x$ в момент времени $t$. Угол наклона касательной к струне в точке $x$ относительно горизонтального направления обозначим как $\alpha$. В любой момент этот угол совпадает с углом наклона касательной к графику функции $y(x)$, то есть $tg \alpha = \frac{\partial u}{\partial x}$. 
+	
+	% stirit risunok)
+	
+	Рассмотрим элементарный участок струны, находящийся в точке $x$, имеющий длину $\delta x$ и массу $\delta m = \rho \delta x$, где $\rho$ [кг/м] — погонная плотность струны (масса на единицу длины). При отклонении от равновесия на выделенный элемент действуют силы натяжения $\overrightarrow{T_1}$ и $\overrightarrow{T_2}$, направленные по касательной к струне. Их вертикальная составляющая будет стремиться вернуть рассматриваемый участок струны к положению равновесия, придавая элементу некоторое вертикальное ускорение $\frac{\partial^2 u}{\partial x^2}$. Заметим, что угол $\alpha$ зависит от координаты $x$ вдоль струны и различен в точках приложения сил. Таким образом, второй закон Ньютона для вертикального движения элемента струны запишется в следующем виде:
+	
+	\begin{equation} \label{eq:second_Newton_law}
+		\delta m \; \frac{\partial^2 u}{\partial t^2} = - T_1 \sin \alpha_1 + T_2 \sin \alpha_2.
+	\end{equation}
+	
+	Основываясь на предположении, что отклонения струны от положения равновесия малы, можем сделать ряд упрощений:
+	
+	\begin{enumerate}
+		\item Длина участка струны в смещенном состоянии практически равна длине участка в положении равновесия, поэтому добавочным напряжением вследствие удлинения струны при деформации можно пренебречь. Следовательно, силы $\overrightarrow{T_1}$ и $\overrightarrow{T_2}$ по модулю равны силе натяжения струны: $T_1 = T_2 = T$.
+		\item Углы наклона $\alpha$ малы, поэтому $\tan \alpha \approx \sin \alpha \approx \alpha$, и, следовательно, можно положить $\alpha \approx \frac{\partial u}{\partial x}$.
+	\end{enumerate}
+	
+	Разделим обе части уравнения движения \eqref{eq:second_Newton_law} на $\delta x$ и устремим размер элемента к нулю, $\delta x \rightarrow 0$. Тогда правая часть примет вид:
+	
+	\begin{equation*}
+		\rho \; \frac{\partial^2 u}{\partial t^2} = \frac{T_2 \sin \alpha_2 - T_1 \sin \alpha_1}{\delta x} \approx T \frac{\alpha_2 - \alpha_1}{\delta x} \rightarrow T \frac{\partial \alpha}{\partial x}.
+	\end{equation*}
+	
+	Наконец, подставляя $\alpha = \frac{\partial \alpha}{\partial x}$ и вводя величину с размерностью скорости $c = \sqrt{\frac{T}{\rho}}$, находим окончательно уравнение свободных малых поперечных колебаний струны:  
+	
+	\begin{equation} \label{eq:wave_eqation}
+		\frac{\partial^2 u}{\partial t^2} = c^2 \; \frac{\partial^2 u}{\partial x^2}.
+	\end{equation}
+
+	Уравнение \eqref{eq:wave_eqation} называют волновым уравнением. Оно играет крайне важную роль в физике и кроме волн на струне может описывать волновые процессы в самых разных системах, в том числе волны в сплошных средах (звук), электромагнитные волны и т.п.
+	
+	В случае, если на струну действует внешняя сила, уравнение \eqref{eq:wave_eqation} необходимо дополнить соответствующим слагаемым:
+	
+	\begin{equation} \label{eq:wave_eqation_with_force}
+		\frac{\partial^2 u}{\partial t^2} = c^2 \; \frac{\partial^2 u}{\partial x^2} + f(x, t).
+	\end{equation}
+	
+	\subsection{Обобщение уравнения колебаний на многомерный случай}
+	
+	% ? https://scask.ru/q_book_emp.php?id=24
+	% надо ли детально прописывать?
+	
+	Уравнение \eqref{eq:wave_eqation_with_force} можно обобщить на двумерный и трёхмерный случаи.  
+	
+	% красивое обобщение
+	% пока ХЗ как
+	
+	Уравнение \eqref{eq:wave_eqation_with_force} удобно записывать в общем виде используя оператор Лапласа $ \displaystyle \Delta f = \sum_{i=1}^{N} \frac{\partial^2 f}{\partial x_i^2}: \frac{\partial^2 u}{\partial t^2} = c^2 \; \Delta u + f $.
+		
+	Более экзотическим вариантом будет запись с оператором Даламбера $ \displaystyle \square f = \Delta f - \frac{1}{c^2} \frac{\partial^2 u}{\partial t^2}$: $ \square u = f $.
+	
+	
+	\subsection{Граничные и начальные условия}
+	
+	% необходимость - задача Коши
+	% начальные условия - координата и скорость
+	% граничные - Дирихле и Нейман
+	
+	\subsection{Численные методы решения уравнения колебаний}
+	
+	% http://math.phys.msu.ru/data/374/tema8.pdf
+	% http://gukitkafmi.narod.ru/files/INShitov/string.pdf
+	
+	% метод Эйлера с формулами
+	% МКЭ - кратко
+	
+	\subsection{Описание программы}
+	
+	% скриптовая версия - программа в App Designer MATLAB
+	% описание вводимых параметров, визуализации
+	% ? псевдокод
+	% скрин
+	
+	\subsection{Результаты расчётов для разных условий}
+	
+	% условия - картинка
+	
+	$$
+	\left\{\begin{array}{@{}l@{}}
+		\displaystyle \frac{\partial^2u}{\partial t^2} = \frac{\partial^2u}{\partial x^2} + f(x, t) \\
+		u|_{t=0} = g(x) \\
+		u'_{t}|_{t=0} = h(x) \\
+		u'_t|_{x=0} = j(t) \\
+		u'_t|_{x=l} = k(t)
+	\end{array}\right.\,
+	$$
+
+	\newpage
+	\makeatletter
+	\addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ И ЛИТЕРАТУРЫ}
+	\refstepcounter{chapter}
+	\begin{thebibliography}{99}
+		
+		\bibitem{Diep1} Львовский С. Набор и вёрстка в системе LATEX. -- 5-е изд., переработанное. -- М.: МЦНМО, 2014. -- 400 с
+		
+		
+	\end{thebibliography}
+	
+\end{document}
+
+
