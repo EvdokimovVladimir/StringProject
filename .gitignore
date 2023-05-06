@@ -1,4 +1,12 @@
-
+# Mac OS
 .DS_Store
+
+# MATLAB
 *.asv
 *.log
+
+# TeXstudio
+*.toc
+*.aux
+*.out
+*.gz
