@@ -104,11 +104,8 @@ for i = 1:length(t)
     xlabel("x");
     ylabel("y");
     zlabel("u");
-    view(2)
-
-    title("t = " + t(i))
-
-    M(i) = getframe;
+    view(2);
+    title("t = " + t(i));
 end
 
 
