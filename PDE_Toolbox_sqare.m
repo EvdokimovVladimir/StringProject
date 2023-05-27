@@ -5,9 +5,9 @@ clc;
 
 x_lim = [0 1];  % границы пространства
 y_lim = [0 1];  % границы пространства
-t_lim = [0 2];  % границы по времени
+t_lim = [0 1];  % границы по времени
 c = 1;          % скорость звука
-dx = 10^-2;     % размер ячейки
+dx = 10^-1;     % размер ячейки
 dt = 10^-2;     % шаг по времени
 
 % location.x
@@ -17,9 +17,9 @@ dt = 10^-2;     % шаг по времени
 % внешняя сила
 external_force = @(location, state) 0 .* location.x;
 % начальное значение
-initial_value = @(location) 0 .* location.x;
+initial_value = @(location) 0.5 * sin(2*pi * location.x) .* sin(2*pi * location.y);
 % начальная скорость
-initial_speed = @(location) sin(2*pi * location.x) .* sin(2*pi * location.y);
+initial_speed = @(location) 0 .* location.x;
 
 % граничные условия
 up_constrain = @(location, state) 0 .* location.x;
@@ -91,8 +91,6 @@ figure
 umax = max(max(u));
 umin = min(min(u));
 
-
-
 for i = 1:length(t)
     pdeplot(model, "XYData", u(:, i), "ZData", u(:, i), ...
                   "ZStyle", "continuous", "Mesh", "off", ...
@@ -106,10 +104,40 @@ for i = 1:length(t)
     zlabel("u");
     view(2);
     title("t = " + t(i));
+    drawnow
 end
 
 
+%%
+figure;
+maxc = max(max(result.NodalSolution));
+minc = min(min(result.NodalSolution));
+MyVideo = VideoWriter(sprintf('2DSys2'));
+MyVideo.FrameRate = 10;
+MyVideo.Quality = 100;
+open(MyVideo);
 
+for i = 1:length(t)
+    pdeplot(model, "XYData", u(:, i), "ZData", u(:, i), ...
+                  "ZStyle", "continuous", "Mesh", "off", ...
+                  "ColorMap", "default");
+    axis([x_lim y_lim umin umax]); 
+    caxis([umin umax]);
+    ylim(y_lim);
+    xlim(x_lim);
+    xlabel("x");
+    ylabel("y");
+    zlabel("u");
+%     view(2);
+    title("t = " + t(i));
+
+    ax = gca;
+    ax.DataAspectRatio = [1 1 1];
+    M(i) = getframe(gcf);
+    writeVideo(MyVideo, M);
+
+end
+close(MyVideo)
 
 
 

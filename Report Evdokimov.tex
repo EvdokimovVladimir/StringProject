@@ -225,7 +225,7 @@
 	
 	\begin{equation} \label{eq:wave_system}
 		\left\{\begin{array}{@{}l@{}}
-			\displaystyle \frac{\partial^2u}{\partial t^2} = \frac{\partial^2u}{\partial x^2} + f(x, t) 
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2} + f(x, t) 
 			\text{ \textemdash \, волновое уравнение}\\
 			u|_{t=0} = \varphi (x) \text{ \textemdash \, начальное положение} \\
 			u'_{t}|_{t=0} = \psi (x) \text{ \textemdash \, начальная скорость} \\
@@ -362,13 +362,189 @@
 	 
 	 \subsubsection{Программа для решения уравнения колебаний прямоугольной мембраны}
 	
-	В случае с колебанием двумерной прямоугольной мембраны написан только скрипт...	
+	В случае с колебанием двумерной прямоугольной мембраны написан только скрипт c использованием Partial Differential Equation Toolbox.
 	
+	В скрипте пользователь указывает:
+	\begin{itemize}
+		\item скорость звука;
+		\item начальное и конечное значения координат;
+		\item начальное и конечное значения времени;
+		\item шаг дискретизации по времени;
+		\item размер конечного элемента;
+		\item функции начального положения и скорости;
+		\item функцию внешней силы, которая может зависеть как от координат, так и от времени;
+		\item функции граничных условий.
+	\end{itemize}
 	
+	Весь скрипт разделен на фрагменты, в каждом из которых выполняется одно действие. Также добавлена возможность вывести изображения геометрии задачи и построенной сетки для промежуточного контроля.
+	Общий алгоритм работы скрипта:
+	
+	\begin{enumerate}
+		\item создание модели PDE;
+		\item задание геометрии, типа уравнения, коэффициентов уравнения, начальных и граничных условий;
+		\item построение сетки;
+		\item численное решение уравнения;
+		\item построение графика решения.
+	\end{enumerate}
 	
 	\subsection{Результаты расчётов для разных условий}
 	
 	% условия - картинка
+	
+	\subsubsection{Условия по-умолчанию}
+	
+	Для демонстрации работы программы при запуске поля заполнены следующими условиями:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2}; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			 t_{min} = 0; \; t_{max} = 1; \\
+			 c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = \sin \pi x; \\
+			u'_{t}|_{t=0} = 0; \\
+			u|_{x=0} = 0; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:first_task}.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/1.png}}
+		\caption{Решение первой задачи.}
+		\label{img:first_task}
+	\end{figure}
+	
+	\newpage
+	\subsubsection{Положение равновесия с начальной скоростью}
+	
+	Вместо начального положения зададим начальную скорость:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2}; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			t_{min} = 0; \; t_{max} = 1; \\
+			c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = 0; \\
+			u'_{t}|_{t=0} = \sin \pi x; \\
+			u|_{x=0} = 0; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:second_task}.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/2.png}}
+		\caption{Решение второй задачи.}
+		\label{img:second_task}
+	\end{figure}
+	
+	\newpage
+	\subsubsection{Резонанс струны}
+	
+	Приложим к струне силу, меняющуюся с частотой первой гармоники струны:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2} + \sin \pi x \cdot \sin \pi t; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			t_{min} = 0; \; t_{max} = 5; \\
+			c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = 0; \\
+			u'_{t}|_{t=0} = 0; \\
+			u|_{x=0} = 0; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:third_task}. Видно, что амплитуда колебаний увеличивается со временем.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/3.png}}
+		\caption{Решение третьей задачи.}
+		\label{img:third_task}
+	\end{figure}
+	
+	\newpage
+	\subsubsection{Сумма трёх гармоник}
+	
+	Смоделируем колебание струны на первых трёх собственных частотах:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2}; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			t_{min} = 0; \; t_{max} = 1; \\
+			c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = 0; \\
+			u'_{t}|_{t=0} = 0; \\
+			u|_{x=0} = \sin 3 \pi t; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:fourth_task}.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/4.png}}
+		\caption{Решение четвертой задачи.}
+		\label{img:fourth_task}
+	\end{figure}
+	
+	\newpage
+	\subsubsection{Колебание одного края струны}
+	
+	Смоделируем струну, край которой движется по гармоническому закону:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2}; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			t_{min} = 0; \; t_{max} = 5; \\
+			c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = \sin \pi x + \sin 2 \pi x + \sin 3 \pi x; \\
+			u'_{t}|_{t=0} = 0; \\
+			u|_{x=0} = 0; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:fifth_task}. Видно как распространяется волна по струне, отражается от правого края и интерферирует сама с собой, образуя стоячую волну.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/5.png}}
+		\caption{Решение пятой задачи.}
+		\label{img:fifth_task}
+	\end{figure}
+	
+	\newpage
+	\subsubsection{Колебание одного края струны}
+	
+	Смоделируем струну, край которой движется по гармоническому закону:
+	
+	\begin{equation*}
+		\left\{\begin{array}{@{}l@{}}
+			\displaystyle \frac{\partial^2u}{\partial t^2} = c^2 \cdot \frac{\partial^2u}{\partial x^2}; \\
+			x_{min} = 0; \; x_{max} = 1; \\
+			t_{min} = 0; \; t_{max} = 5; \\
+			c = 1; \;  \Delta x = 0.001; \\
+			u|_{t=0} = \sin \pi x + \sin 2 \pi x + \sin 3 \pi x; \\
+			u'_{t}|_{t=0} = 0; \\
+			u|_{x=0} = 0; \\
+			u|_{x=1} = 0.
+		\end{array}\right.\,
+	\end{equation*}
+	
+	Результат решения изображен на рисунке \ref{img:fifth_task}. Видно как распространяется волна по струне, отражается от правого края и интерферирует сама с собой, образуя стоячую волну.
+	
+	\begin{figure}[h]
+		\center{\includegraphics[width=1\linewidth]{Wave eqation/5.png}}
+		\caption{Решение пятой задачи.}
+		\label{img:fifth_task}
+	\end{figure}
 	
 
 
