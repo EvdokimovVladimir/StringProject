@@ -109,10 +109,10 @@ end
 
 
 %%
-figure;
+figure('Color',[1 1 1]);
 maxc = max(max(result.NodalSolution));
 minc = min(min(result.NodalSolution));
-MyVideo = VideoWriter(sprintf('2DSys2'));
+MyVideo = VideoWriter("Video2", "MPEG-4");
 MyVideo.FrameRate = 10;
 MyVideo.Quality = 100;
 open(MyVideo);
@@ -128,15 +128,16 @@ for i = 1:length(t)
     xlabel("x");
     ylabel("y");
     zlabel("u");
-%     view(2);
+    view(2);
     title("t = " + t(i));
+    set(gca,'Color',[1 1 1])
 
     ax = gca;
     ax.DataAspectRatio = [1 1 1];
     M(i) = getframe(gcf);
-    writeVideo(MyVideo, M);
-
 end
+
+writeVideo(MyVideo, M);
 close(MyVideo)
 
 
